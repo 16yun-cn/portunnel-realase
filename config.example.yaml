@@ -1,0 +1,53 @@
+# 服务端配置
+server:
+  # 主代理端口 (无隧道ID，每次请求可能不同IP)
+  proxyPort: 18080
+  # Web管理界面端口
+  webPort: 19090
+  # 隧道代理起始端口
+  tunnelStart: 18100
+  # 隧道数量 (端口范围: tunnelStart ~ tunnelStart+tunnelCount-1)
+  tunnelCount: 100
+
+# 远程亿牛云代理配置
+remoteProxy:
+  host: "proxy.16yun.cn"
+  port: 3100
+  username: "your-username"
+  password: "your-password"
+
+# 管理员配置
+admin:
+  username: "admin"
+  # 密码哈希 (bcrypt)，使用 htpasswd -bnBC 10 "" password | tr -d ':\n' 生成
+  # 默认密码: admin123
+  passwordHash: "$2y$10$/j/hErUkguRwh3h119/g1.nzAlyXBBsQOvFJfq28PGVwKMd6ojMXO"
+  # JWT签名密钥 (生产环境请修改!)
+  jwtSecret: "change-this-secret-in-production"
+  # Token有效期 (秒)
+  tokenExpiry: 86400
+
+# 统计配置
+stats:
+  # 保留的小时统计数量
+  maxHours: 168
+  # 保留的域名统计数量
+  maxDomains: 1000
+
+# 重试策略配置
+retry:
+  # 最大重试次数 (包含首次请求)
+  maxAttempts: 3
+  # 退避基准延迟 (毫秒)
+  baseDelayMs: 100
+  # 退避最大延迟 (毫秒)
+  maxDelayMs: 1000
+  # 抖动比例 (0~1)
+  jitter: 0.2
+  # 可重试的上游状态码
+  statusCodes: [502, 503, 504]
+
+# 日志配置
+logging:
+  # Debug模式: 输出详细错误信息与URL
+  debug: false
