@@ -89,6 +89,10 @@ curl -x http://localhost:18100 https://httpbin.org/ip
 - 隧道端口范围：`server.tunnelStart` ~ `server.tunnelStart+tunnelCount-1`（默认 18100-18199）
 - Web 端口：`server.webPort`（默认 19090）
 
+## 爬虫最佳实践
+
+请阅读 `USAGE_BEST_PRACTICES.md`，包含端口/IP策略、免认证使用方式与 Bypass 配置示例。
+
 ## 常见问题
 
 - **浏览器访问 `http://admin:admin123@127.0.0.1:19090/api/v1/get_proxy` 返回 401**
