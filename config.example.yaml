@@ -49,6 +49,32 @@ retry:
   # 可重试的上游状态码
   statusCodes: [502, 503, 504]
 
+# 路由规则配置 (Bypass)
+routing:
+  # 默认策略: PROXY / DIRECT / REJECT
+  defaultPolicy: "PROXY"
+  # 规则列表 (按顺序匹配, 首次命中即停止)
+  rules:
+    # 本地与内网直连
+    - type: "DOMAIN-SUFFIX"
+      value: "local"
+      policy: "DIRECT"
+    - type: "IP-CIDR"
+      value: "127.0.0.0/8"
+      policy: "DIRECT"
+    - type: "IP-CIDR"
+      value: "192.168.0.0/16"
+      policy: "DIRECT"
+    # google.com阻断
+    - type: "DOMAIN-KEYWORD"
+      value: "google.com"
+      policy: "REJECT"
+
+# DNS 配置 (用于 IP-CIDR 匹配主机名)
+dns:
+  use_local_dns: false
+  dns_server: ["114.114.114.114", "223.5.5.5"]
+
 # 日志配置
 logging:
   # Debug模式: 输出详细错误信息与URL

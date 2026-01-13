@@ -55,6 +55,14 @@ curl -x http://localhost:18100 https://httpbin.org/ip
 - `remoteProxy.password`：亿牛云账号密码
 - `remoteProxy.ttl`：代理列表过期时间（秒，默认 20）
 
+### routing
+- `routing.defaultPolicy`：默认策略（`PROXY`/`DIRECT`/`REJECT`，默认 PROXY）
+- `routing.rules`：路由规则列表（按顺序匹配，首次命中即停止）
+
+### dns
+- `dns.use_local_dns`：启用本地 DNS 解析（用于 IP-CIDR 匹配主机名）
+- `dns.dns_server`：DNS 服务器列表
+
 ### admin
 - `admin.username`：Web 管理员用户名
 - `admin.passwordHash`：管理员密码哈希（bcrypt），可用 `htpasswd -bnBC 10 "" <password> | tr -d ':\n'` 生成
@@ -107,3 +115,25 @@ curl -u admin:admin123 "http://127.0.0.1:19090/api/v1/get_proxy"
 # JSON 格式
 curl -u admin:admin123 "http://127.0.0.1:19090/api/v1/get_proxy?format=json"
 ```
+
+### 获取路由规则统计
+
+- 路径：`GET /api/routing/rules`
+- 认证：JWT Bearer
+- 返回：规则列表 + 命中次数 + 默认策略 + 总命中数
+
+示例：
+
+```
+curl -H "Authorization: Bearer <token>" "http://127.0.0.1:19090/api/routing/rules"
+```
+
+## Bypass 路由
+
+- 规则匹配顺序：从上到下，首次命中即停止
+- 支持类型：`DOMAIN-SUFFIX` / `DOMAIN-KEYWORD` / `IP-CIDR`
+- 策略：`PROXY` / `DIRECT` / `REJECT`
+- `REJECT` 会返回 HTTP 450
+- IP-CIDR 对主机名生效需开启 `dns.use_local_dns`
+
+Web 页面：`http://localhost:19090/routing`
