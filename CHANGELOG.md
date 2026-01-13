@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## v0.5
 
 ### Added
 - Bypass routing with `PROXY`/`DIRECT`/`REJECT` policies and first-match rules.
@@ -14,3 +14,4 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Documentation updated for routing, DNS, and management APIs.
 
+## Unreleased
