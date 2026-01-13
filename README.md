@@ -53,6 +53,7 @@ curl -x http://localhost:18100 https://httpbin.org/ip
 - `remoteProxy.port`：亿牛云代理端口（默认 3100）
 - `remoteProxy.username`：亿牛云账号用户名
 - `remoteProxy.password`：亿牛云账号密码
+- `remoteProxy.ttl`：代理列表过期时间（秒，默认 20）
 
 ### admin
 - `admin.username`：Web 管理员用户名
@@ -82,5 +83,27 @@ curl -x http://localhost:18100 https://httpbin.org/ip
 
 ## 常见问题
 
+- **浏览器访问 `http://admin:admin123@127.0.0.1:19090/api/v1/get_proxy` 返回 401**
+  现代浏览器通常会忽略 URL 中的 `user:pass@` Basic Auth。请直接访问 `http://127.0.0.1:19090/api/v1/get_proxy` 触发登录弹窗，或使用 curl/Postman；也可以先登录获取 JWT 后用 `Authorization: Bearer <token>` 访问。
+
 - **启动报错：remoteProxy.host must be a 16yun.cn domain**
   请确认 `remoteProxy.host` 填写的是 `16yun.cn` 主域名或子域名，如 `t.16yun.cn`。
+
+## 管理 API
+
+### 获取隧道代理列表
+
+- 路径：`GET /api/v1/get_proxy`
+- 认证：JWT Bearer 或 HTTP Basic
+- 默认返回：`text/plain`，一行一个 `host:port`
+- JSON：追加 `?format=json`
+
+示例：
+
+```
+# 文本格式
+curl -u admin:admin123 "http://127.0.0.1:19090/api/v1/get_proxy"
+
+# JSON 格式
+curl -u admin:admin123 "http://127.0.0.1:19090/api/v1/get_proxy?format=json"
+```
