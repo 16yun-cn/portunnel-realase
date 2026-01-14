@@ -15,3 +15,7 @@ All notable changes to this project will be documented in this file.
 - Documentation updated for routing, DNS, and management APIs.
 
 ## Unreleased
+
+### Added
+- CLI support for `--config`/`-f` and credential update modes (`--username`, `--password`, `--set-credentials`).
+- Config `proxy.connectForceClose` to control main-port forced connection close (on/off/auto).

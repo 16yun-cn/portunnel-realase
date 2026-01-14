@@ -22,6 +22,22 @@ cp config.example.yaml config.yaml
 ./proxy-tunnel-<os-arch>
 ```
 
+（可选）指定配置文件或修改管理员账号/密码（仅写配置并退出）：
+
+```
+# 指定配置文件
+./proxy-tunnel-<os-arch> --config /path/to/config.yaml
+./proxy-tunnel-<os-arch> -f /path/to/config.yaml
+
+# 参数方式（可只改其中一个）
+./proxy-tunnel-<os-arch> --config ./config.yaml --username newadmin
+./proxy-tunnel-<os-arch> --config ./config.yaml --password newpass
+./proxy-tunnel-<os-arch> --config ./config.yaml --username newadmin --password newpass
+
+# 交互方式（密码隐藏输入）
+./proxy-tunnel-<os-arch> --config ./config.yaml --set-credentials
+```
+
 3) 访问 Web 管理界面：
 
 ```
@@ -54,6 +70,12 @@ curl -x http://localhost:18100 https://httpbin.org/ip
 - `remoteProxy.username`：亿牛云账号用户名
 - `remoteProxy.password`：亿牛云账号密码
 - `remoteProxy.ttl`：代理列表过期时间（秒，默认 20）
+
+### proxy
+- `proxy.connectForceClose`：主端口连接强制断开策略（`on`/`off`/`auto`，默认 `auto`）
+  - `on`：每次请求强制断开以确保切换 IP
+  - `off`：不强制断开，IP 切换由客户端连接决定
+  - `auto`：主端口若客户端带 `Proxy-Tunnel` 头则不强制断开，否则强制断开
 
 ### routing
 - `routing.defaultPolicy`：默认策略（`PROXY`/`DIRECT`/`REJECT`，默认 PROXY）

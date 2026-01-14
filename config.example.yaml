@@ -9,6 +9,14 @@ server:
   # 隧道数量 (端口范围: tunnelStart ~ tunnelStart+tunnelCount-1)
   tunnelCount: 100
 
+# 代理行为配置
+proxy:
+  # 主端口是否强制断开连接: on / off / auto
+  # on: 每次请求强制断开以确保切换 IP
+  # off: 不强制断开，IP 切换由客户端连接决定
+  # auto: 主端口若客户端带 Proxy-Tunnel 头则不强制断开，否则强制断开
+  connectForceClose: "auto"
+
 # 远程亿牛云代理配置
 remoteProxy:
   host: "proxy.16yun.cn"
