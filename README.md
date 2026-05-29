@@ -17,6 +17,7 @@ cp config.example.yaml config.yaml
 ```
 
 2) 运行程序：
+   下载程序 https://github.com/16yun-cn/portunnel-realase/releases
 
 ```
 ./proxy-tunnel-<os-arch>
